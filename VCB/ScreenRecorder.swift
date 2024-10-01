@@ -1,11 +1,3 @@
-//
-//  ScreenRecorder.swift
-//  VCB
-//
-//  Created by helinyu on 2024/10/2.
-//
-
-import Foundation
 import AVFoundation
 import Cocoa
 
@@ -28,18 +20,30 @@ class ScreenRecorder: NSObject {
             captureSession!.addInput(screenInput)
         }
         
-        // 4. 创建输出对象
+        // 4. 获取麦克风输入
+        if let audioDevice = AVCaptureDevice.default(for: .audio) {
+            do {
+                let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+                if captureSession!.canAddInput(audioInput) {
+                    captureSession!.addInput(audioInput)
+                }
+            } catch {
+                print("Error adding audio input: \(error)")
+            }
+        }
+        
+        // 5. 创建输出对象
         movieOutput = AVCaptureMovieFileOutput()
         
-        // 5. 添加输出到会话
+        // 6. 添加输出到会话
         if captureSession!.canAddOutput(movieOutput!) {
             captureSession!.addOutput(movieOutput!)
         }
         
-        // 6. 启动会话
+        // 7. 启动会话
         captureSession!.startRunning()
         
-        // 7. 开始录制到指定的文件
+        // 8. 开始录制到指定的文件
         movieOutput!.startRecording(to: url, recordingDelegate: self)
     }
     
@@ -51,10 +55,6 @@ class ScreenRecorder: NSObject {
 
 extension ScreenRecorder: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: (any Error)?) {
-        print("Finished recording to ll: \(outputFileURL)")
-    }
-    
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, fromConnections connections: [AVAssetExportSession]) {
         print("Finished recording to: \(outputFileURL)")
     }
 }
