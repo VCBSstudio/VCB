@@ -24,6 +24,15 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            
+            Button(action: {
+                showAlertView()
+            }) {
+                Text("弹出显示框")
+                    .padding()
+                    .background(.orange)
+                    .cornerRadius(10)
+            }
         }
         .padding()
     }
@@ -35,6 +44,10 @@ struct ContentView: View {
     
     private func stopRecording() {
         screenRecorder.stopRecording()
+    }
+    
+    private func showAlertView() {
+        print("显示弹框")
     }
 }
 
