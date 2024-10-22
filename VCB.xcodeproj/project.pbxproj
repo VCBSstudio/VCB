@@ -192,9 +192,17 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				it,
 			);
 			mainGroup = 4A135A0A2CAC6D8F00792519;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4A2371CC2CC847A70056A96A /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				4A2371CD2CC847D90056A96A /* XCRemoteSwiftPackageReference "MatrixColorSelector" */,
+				4A2371CE2CC847FA0056A96A /* XCRemoteSwiftPackageReference "Sparkle" */,
+				4A2371CF2CC848340056A96A /* XCRemoteSwiftPackageReference "swiftlame" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4A135A142CAC6D8F00792519 /* Products */;
 			projectDirPath = "";
@@ -551,6 +559,41 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A2371CC2CC847A70056A96A /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
+		4A2371CD2CC847D90056A96A /* XCRemoteSwiftPackageReference "MatrixColorSelector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lihaoyun6/MatrixColorSelector";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		4A2371CE2CC847FA0056A96A /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.4;
+			};
+		};
+		4A2371CF2CC848340056A96A /* XCRemoteSwiftPackageReference "swiftlame" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hidden-spectrum/swiftlame";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 4A135A0B2CAC6D8F00792519 /* Project object */;
 }

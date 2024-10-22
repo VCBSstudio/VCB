@@ -1,0 +1,42 @@
+{
+  "originHash" : "199754816fd12fcecc3d02a3ee3de1a5d71bbfc544ede3d08c492ead347331d9",
+  "pins" : [
+    {
+      "identity" : "keyboardshortcuts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/KeyboardShortcuts",
+      "state" : {
+        "revision" : "9203a8de359dc64259bdb28cc44af32c15b3fc5b",
+        "version" : "2.2.1"
+      }
+    },
+    {
+      "identity" : "matrixcolorselector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lihaoyun6/MatrixColorSelector",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8d35fc408a9cc499364866bdd30432a9c8dbc231"
+      }
+    },
+    {
+      "identity" : "sparkle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparkle-project/Sparkle",
+      "state" : {
+        "revision" : "0ef1ee0220239b3776f433314515fd849025673f",
+        "version" : "2.6.4"
+      }
+    },
+    {
+      "identity" : "swiftlame",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hidden-spectrum/swiftlame",
+      "state" : {
+        "revision" : "45d1b021c2bd2bbd38b9669934c0584cda0d1b6b",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
