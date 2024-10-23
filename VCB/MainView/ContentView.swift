@@ -8,7 +8,6 @@ struct ContentView: View {
     @State private var xmarkGlowing = false
     @State private var infoGlowing = false
     @State private var micGlowing = false
-    //@State private var showSettings = false
     @State private var isPopoverShowing = false
     @State private var micList = SCContext.getMicrophone()
     @AppStorage("enableAEC") private var enableAEC: Bool = false
@@ -421,4 +420,4 @@ extension View {
 //#Preview {
 //    ContentView()
 //}
-
+//

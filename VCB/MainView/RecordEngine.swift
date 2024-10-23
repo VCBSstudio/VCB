@@ -24,7 +24,7 @@ extension AppDelegate {
         }
         var isDirectory: ObjCBool = false
         let fileManager = FileManager.default
-        let outputPath = ud.string(forKey: "saveDirectory")!
+        let outputPath = ud.string(forKey: kSaveDirectory)!
         print("lt -- output path : \(outputPath)")
         if fileManager.fileExists(atPath: outputPath, isDirectory: &isDirectory) {
             if !isDirectory.boolValue {

@@ -205,7 +205,7 @@ struct OptionsView: View {
     
     @AppStorage("frameRate")      private var frameRate: Int = 60
     @AppStorage("videoQuality")   private var videoQuality: Double = 1.0
-    @AppStorage("saveDirectory")  private var saveDirectory: String?
+    @AppStorage(kSaveDirectory)  private var saveDirectory: String?
     @AppStorage("hideSelf")       private var hideSelf: Bool = false
     @AppStorage("showMouse")      private var showMouse: Bool = true
     @AppStorage("recordMic")      private var recordMic: Bool = false

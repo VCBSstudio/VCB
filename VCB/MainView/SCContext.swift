@@ -141,7 +141,7 @@ class SCContext {
     static func getFilePath(capture: Bool = false) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "y-MM-dd HH.mm.ss"
-        return ud.string(forKey: "saveDirectory")! + (capture ? "/Capturing at ".local : "/Recording at ".local) + dateFormatter.string(from: Date())
+        return ud.string(forKey: kSaveDirectory)! + (capture ? "/Capturing at ".local : "/Recording at ".local) + dateFormatter.string(from: Date())
     }
     
     static func updateAudioSettings(format: String = ud.string(forKey: "audioFormat") ?? "") {
@@ -356,7 +356,7 @@ class SCContext {
                 }
             } else {
                 let title = "Recording Completed".local
-                var body = String(format: "File saved to folder: %@".local, ud.string(forKey: "saveDirectory")!)
+                var body = String(format: "File saved to folder: %@".local, ud.string(forKey: kSaveDirectory)!)
                 if let filePath = filePath { body = String(format: "File saved to: %@".local, filePath) }
                 let id = "quickrecorder.completed.\(Date.now)"
                 showNotification(title: title, body: body, id: id)
@@ -373,7 +373,7 @@ class SCContext {
         
         if !(ud.bool(forKey: "recordMic") && ud.bool(forKey: "recordWinSound") && ud.bool(forKey: "remuxAudio")) && streamType != .systemaudio {
             let title = "Recording Completed".local
-            var body = String(format: "File saved to folder: %@".local, ud.string(forKey: "saveDirectory")!)
+            var body = String(format: "File saved to folder: %@".local, ud.string(forKey: kSaveDirectory)!)
             if let filePath = filePath { body = String(format: "File saved to: %@".local, filePath) }
             let id = "quickrecorder.completed.\(Date.now)"
             if let vW = vW {

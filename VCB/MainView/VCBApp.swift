@@ -233,14 +233,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, SCStreamDelegate, SCStreamOu
                 //"colorSpace": ColSpace.srgb.rawValue,
                 "encoder": Encoder.h264.rawValue,
                 "poSafeDelay": 1,
-                "saveDirectory": downloadDir as NSString,
+                kSaveDirectory: downloadDir as NSString,
                 "showMouse": true,
                 "recordMic": false,
                 "remuxAudio": true,
                 "recordWinSound": true,
                 "trimAfterRecord": false,
                 "showOnDock": true,
-                "showMenubar": false,
+                kShowMenuBar: false,
                 "enableAEC": false,
                 "recordHDR": false,
                 "savedArea": [String: [String: CGFloat]]()
@@ -251,7 +251,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SCStreamDelegate, SCStreamOu
         if ud.bool(forKey: "showOnDock") {
             NSApp.setActivationPolicy(.regular)
         }
-        else if !ud.bool(forKey: "showMenubar") {
+        else if !ud.bool(forKey: kShowMenuBar) {
             ud.setValue(true, forKey: "showOnDock")
         }
         else {}

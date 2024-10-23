@@ -12,32 +12,30 @@ import KeyboardShortcuts
 import MatrixColorSelector
 
 struct SettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
-    //@NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var appDelegate = AppDelegate.shared
     @State private var userColor: Color = Color.black
     @State private var launchAtLogin = false
-    @AppStorage("encoder")          private var encoder: Encoder = .h264
-    @AppStorage("videoFormat")      private var videoFormat: VideoFormat = .mp4
-    @AppStorage("audioFormat")      private var audioFormat: AudioFormat = .aac
-    @AppStorage("audioQuality")     private var audioQuality: AudioQuality = .high
-    @AppStorage("pixelFormat")      private var pixelFormat: PixFormat = .delault
-    //@AppStorage("colorSpace")       private var colorSpace: ColSpace = .delault
-    @AppStorage("background")       private var background: BackgroundType = .wallpaper
-    @AppStorage("hideSelf")         private var hideSelf: Bool = true
-    @AppStorage("countdown")        private var countdown: Int = 0
-    @AppStorage("poSafeDelay")      private var poSafeDelay: Int = 1
-    @AppStorage("saveDirectory")    private var saveDirectory: String?
-    @AppStorage("highlightMouse")   private var highlightMouse: Bool = false
-    @AppStorage("includeMenuBar")   private var includeMenuBar: Bool = true
-    @AppStorage("hideDesktopFiles") private var hideDesktopFiles: Bool = false
-    @AppStorage("trimAfterRecord")  private var trimAfterRecord: Bool = false
-    @AppStorage("withAlpha")        private var withAlpha: Bool = false
-    @AppStorage("showOnDock")       private var showOnDock: Bool = true
-    @AppStorage("showMenubar")      private var showMenubar: Bool = false
-    @AppStorage("remuxAudio")       private var remuxAudio: Bool = true
-    @AppStorage("enableAEC")        private var enableAEC: Bool = false
-    @AppStorage("miniStatusBar")    private var miniStatusBar: Bool = false
+    
+    @AppStorage(kEncoder)          private var encoder: Encoder = .h264
+    @AppStorage(kVideoFormat)      private var videoFormat: VideoFormat = .mp4
+    @AppStorage(kAudioFormat)      private var audioFormat: AudioFormat = .aac
+    @AppStorage(kAudioQuality)     private var audioQuality: AudioQuality = .high
+    @AppStorage(kPixelFormat)      private var pixelFormat: PixFormat = .delault
+    @AppStorage(kBackground)       private var background: BackgroundType = .wallpaper
+    @AppStorage(kHideSelf)         private var hideSelf: Bool = true
+    @AppStorage(kCountdown)        private var countdown: Int = 0
+    @AppStorage(kPoSafeDelay)      private var poSafeDelay: Int = 1
+    @AppStorage(kSaveDirectory)    private var saveDirectory: String?
+    @AppStorage(kHighlightMouse)   private var highlightMouse: Bool = false
+    @AppStorage(kIncludeMenuBar)   private var includeMenuBar: Bool = true
+    @AppStorage(kHideDesktopFiles) private var hideDesktopFiles: Bool = false
+    @AppStorage(kTtrimAfterRecord)  private var trimAfterRecord: Bool = false
+    @AppStorage(kWithAlpha)        private var withAlpha: Bool = false
+    @AppStorage(kShowOnDock)       private var showOnDock: Bool = true
+    @AppStorage(kShowMenuBar)       private var showMenubar: Bool = false
+    @AppStorage(kRemuxAudio)       private var remuxAudio: Bool = true
+    @AppStorage(kEnableAEC)        private var enableAEC: Bool = false
+    @AppStorage(kMiniStatusBar)    private var miniStatusBar: Bool = false
     
     var body: some View {
         VStack {
@@ -45,13 +43,6 @@ struct SettingsView: View {
                 VStack(alignment: .leading) {
                     GroupBox(label: Text("Video Settings".local).fontWeight(.bold)) {
                         Form() {
-                            /*Picker("Color Space", selection: $colorSpace) {
-                                Text("Default").tag(ColSpace.delault)
-                                Text("sRGB").tag(ColSpace.srgb)
-                                Text("BT.709").tag(ColSpace.bt709)
-                                Text("BT.2020").tag(ColSpace.bt2020)
-                                Text("Display P3").tag(ColSpace.p3)
-                            }.padding([.leading, .trailing], 10).padding(.bottom, 6)*/
                             Picker("Format", selection: $videoFormat) {
                                 Text("MOV").tag(VideoFormat.mov)
                                 Text("MP4").tag(VideoFormat.mp4)
@@ -65,6 +56,7 @@ struct SettingsView: View {
                             .padding([.leading, .trailing], 10)
                             .disabled(withAlpha)
                         }.frame(maxWidth: .infinity).padding(.top, 10)
+                        
                         Toggle(isOn: $withAlpha) { Text("Recording with Alpha Channel") }
                             .onChange(of: withAlpha) {alpha in
                                 if alpha {
@@ -74,7 +66,7 @@ struct SettingsView: View {
                                 }}
                             .padding([.leading, .trailing, .bottom], 10).padding(.top, 3.5)
                             .toggleStyle(.checkbox)
-                    }//.padding(.bottom, 7)
+                    }
                     GroupBox(label: Text("Audio Settings".local).fontWeight(.bold)) {
                         Form() {
                             Picker("Quality", selection: $audioQuality) {
@@ -241,13 +233,9 @@ struct SettingsView: View {
                                 }
                             Text("Launch at login").padding(.leading, -5)
                         }
-                    }//.padding(.trailing, 5)
+                    }
                 }
-                /*Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Close").padding([.leading, .trailing], 20)
-                }).keyboardShortcut(.escape)*/
+                
             }.padding(.top, 1.5)
         }
         .padding([.leading, .trailing], 17).padding([.top, .bottom], 12)
@@ -255,15 +243,15 @@ struct SettingsView: View {
             userColor = ud.color(forKey: "userColor") ?? Color.black
             if #available(macOS 13, *) { launchAtLogin = (SMAppService.mainApp.status == .enabled) }
         }
-        //.onDisappear{ ud.setColor(userColor, forKey: "userColor") }
     }
     
-    func updateOutputDirectory() { // todo: re-sandbox
+    func updateOutputDirectory() {
         let openPanel = NSOpenPanel()
         openPanel.canChooseFiles = false
         openPanel.canChooseDirectories = true
         openPanel.allowedContentTypes = []
         openPanel.allowsOtherFileTypes = false
+        openPanel.directoryURL = URL(fileURLWithPath: saveDirectory!) // 打开当前设置的目录
         if openPanel.runModal() == NSApplication.ModalResponse.OK {
             if let path = openPanel.urls.first?.path { saveDirectory = path }
         }

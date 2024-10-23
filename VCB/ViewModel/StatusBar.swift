@@ -196,7 +196,7 @@ struct StatusBarItem: View {
                         }
                     }
                 }
-            } else if ud.bool(forKey: "showMenubar") {
+            } else if ud.bool(forKey: kShowMenuBar) {
                 Button(action: {
                     isPopoverShowing = true
                 }, label: {
@@ -229,12 +229,11 @@ struct StatusBarItem: View {
 extension AppDelegate: NSMenuDelegate {
     func updateStatusBar() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if SCContext.streamType == nil && !ud.bool(forKey: "showMenubar") {
+            if SCContext.streamType == nil && !ud.bool(forKey: kShowMenuBar) {
                 statusBarItem.isVisible = false
                 return
             }
             guard let button = statusBarItem.button else { return }
-            //let width = SCContext.streamType == nil ? 36 : ((SCContext.streamType == .idevice || SCContext.streamType == .systemaudio) ? 138 : 158)
             let iconView = NSHostingView(rootView: StatusBarItem().padding(.top, isMacOS14 ? -2 : -1))
             iconView.frame = NSRect(x: 0, y: 1, width: getStatusBarWidth(), height: isMacOS14 ? 22 : 21)
             button.subviews = [iconView]
