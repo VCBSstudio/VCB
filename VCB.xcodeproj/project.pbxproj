@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4AB34A582CC8CBFE007E2856 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 4AB34A572CC8CBFE007E2856 /* Sparkle */; };
+		4AB34A5A2CC8CC19007E2856 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4AB34A592CC8CC19007E2856 /* KeyboardShortcuts */; };
+		4AB34A5F2CC8D2B0007E2856 /* SwiftLAME in Frameworks */ = {isa = PBXBuildFile; productRef = 4AB34A5E2CC8D2B0007E2856 /* SwiftLAME */; };
+		4AB34A6A2CC8EADB007E2856 /* MatrixColorSelector in Frameworks */ = {isa = PBXBuildFile; productRef = 4AB34A692CC8EADB007E2856 /* MatrixColorSelector */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4A135A252CAC6D9300792519 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AB34A6A2CC8EADB007E2856 /* MatrixColorSelector in Frameworks */,
+				4AB34A582CC8CBFE007E2856 /* Sparkle in Frameworks */,
+				4AB34A5A2CC8CC19007E2856 /* KeyboardShortcuts in Frameworks */,
+				4AB34A5F2CC8D2B0007E2856 /* SwiftLAME in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +123,10 @@
 			);
 			name = VCB;
 			packageProductDependencies = (
+				4AB34A572CC8CBFE007E2856 /* Sparkle */,
+				4AB34A592CC8CC19007E2856 /* KeyboardShortcuts */,
+				4AB34A5E2CC8D2B0007E2856 /* SwiftLAME */,
+				4AB34A692CC8EADB007E2856 /* MatrixColorSelector */,
 			);
 			productName = VCB;
 			productReference = 4A135A132CAC6D8F00792519 /* VCB.app */;
@@ -402,11 +417,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VCB/VCB.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VCB/Preview Content\"";
-				DEVELOPMENT_TEAM = D2XBEJ6876;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -432,11 +448,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VCB/VCB.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VCB/Preview Content\"";
-				DEVELOPMENT_TEAM = D2XBEJ6876;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -594,6 +611,29 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4AB34A572CC8CBFE007E2856 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A2371CE2CC847FA0056A96A /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+		4AB34A592CC8CC19007E2856 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A2371CC2CC847A70056A96A /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		4AB34A5E2CC8D2B0007E2856 /* SwiftLAME */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A2371CF2CC848340056A96A /* XCRemoteSwiftPackageReference "swiftlame" */;
+			productName = SwiftLAME;
+		};
+		4AB34A692CC8EADB007E2856 /* MatrixColorSelector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A2371CD2CC847D90056A96A /* XCRemoteSwiftPackageReference "MatrixColorSelector" */;
+			productName = MatrixColorSelector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A135A0B2CAC6D8F00792519 /* Project object */;
 }
