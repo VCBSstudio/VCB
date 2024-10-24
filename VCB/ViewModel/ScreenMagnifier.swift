@@ -17,9 +17,9 @@ struct ScreenMagnifier: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.clear)
+                .fill(Color.green)
                 .overlay(Rectangle()
-                .stroke(style: StrokeStyle(lineWidth: 2))
+                .stroke(style: StrokeStyle(lineWidth: 20))
                 .padding(1)
                 .foregroundColor(.blue.opacity(0.5))
                 )

@@ -447,9 +447,5 @@ class ScreenshotWindow: NSPanel {
 enum ResizeHandle: CaseIterable {
     case none
     case topLeft, top, topRight, right, bottomRight, bottom, bottomLeft, left
-    
-//    static var allCases: [ResizeHandle] {
-//        return [.none, .topLeft, .top, .topRight, .right, .bottomRight, .bottom, .bottomLeft, .left]
-//    }
 }
 

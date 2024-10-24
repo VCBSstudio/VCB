@@ -148,7 +148,6 @@ struct ContentView: View {
                         NSApplication.closeMainWindow()
                         SCContext.updateAvailableContent{
                             DispatchQueue.main.async {
-//                                设置显示的区域
                                 appDelegate.showAreaSelector(size: NSSize(width: 600, height: 450))
                                 var currentDisplay = SCContext.getSCDisplayWithMouse()
                                 mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .rightMouseDown, .leftMouseDown, .otherMouseDown]) { event in
@@ -156,14 +155,14 @@ struct ContentView: View {
                                     if display != currentDisplay {
                                         currentDisplay = display
                                         appDelegate.closeAllWindow()
-                                        appDelegate.showAreaSelector(size: NSSize(width: 600, height: 450))
+                                        appDelegate.showAreaSelector(size: NSSize(width: 300, height: 400))
                                     }
                                 }
                             }
                         }
                     }, label: {
                         SelectorView(title: kScreenArea.local, symbol: "viewfinder")
-                            .cornerRadius(8)
+                            .cornerRadius(8).background(.green)
                     })
                     .buttonStyle(.plain)
                     Divider().frame(height: 70)
@@ -215,6 +214,7 @@ struct ContentView: View {
                             RoundedRectangle(cornerRadius: 4, style: .continuous)
                                 .stroke(.secondary.opacity(xmarkGlowing ? 1.0 : 0.4), lineWidth: 1)
                                 .padding(-1).padding([.leading, .trailing], -0.7)
+                                .background(.blue)
                         )
                 })
                 .buttonStyle(.plain)
@@ -345,7 +345,6 @@ extension AppDelegate {
             let wX = (screen.frame.width - 700) / 2 + screen.frame.minX
             let wY = screen.visibleFrame.minY + 80
             let contentView = NSHostingView(rootView: AreaSelector(screen: scDisplay))
-            contentView.layer?.backgroundColor = NSColor.red.cgColor
             contentView.frame = NSRect(x: wX, y: wY, width: 780, height: 110)
             contentView.focusRingType = .none
             let areaPanel = NSPanel(contentRect: contentView.frame, styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
