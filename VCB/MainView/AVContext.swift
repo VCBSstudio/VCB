@@ -34,7 +34,6 @@ extension AppDelegate {
     
     func closeCamera() {
         if SCContext.isCameraRunning() {
-            //SCContext.previewType = nil
             if camWindow.isVisible { camWindow.close() }
             SCContext.captureSession.stopRunning()
         }

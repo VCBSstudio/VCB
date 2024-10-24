@@ -175,7 +175,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, SCStreamDelegate, SCStreamOu
             if (!w1.isEmpty && w2.isEmpty) || w1.isEmpty {
                 let mainPanel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 927, height: 100), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
                 mainPanel.contentView = NSHostingView(rootView: ContentView())
-                mainPanel.title = "vcb".local
+                mainPanel.title = kProjectName.local
                 mainPanel.isOpaque = false
                 mainPanel.level = .floating
                 mainPanel.isRestorable = false

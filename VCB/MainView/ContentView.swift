@@ -3,16 +3,17 @@ import AVFoundation
 import ScreenCaptureKit
 
 struct ContentView: View {
-    var fromStatusBar = false // 从状态条目中
+    var fromStatusBar = false
     @State private var window: NSWindow?
     @State private var xmarkGlowing = false
     @State private var infoGlowing = false
     @State private var micGlowing = false
     @State private var isPopoverShowing = false
     @State private var micList = SCContext.getMicrophone()
-    @AppStorage("enableAEC") private var enableAEC: Bool = false
-    @AppStorage("recordMic") private var recordMic: Bool = false
-    @AppStorage("micDevice") private var micDevice: String = "default"
+
+    @AppStorage(kEnableAEC) private var enableAEC: Bool = false
+    @AppStorage(kRecordMic) private var recordMic: Bool = false
+    @AppStorage(kMicDevice) private var micDevice: String = kDefault
     var appDelegate = AppDelegate.shared
     
     var body: some View {
@@ -144,9 +145,10 @@ struct ContentView: View {
                     }).buttonStyle(.plain)
                     Divider().frame(height: 70)
                     Button(action: {
-                        appDelegate.closeMainWindow()
+                        NSApplication.closeMainWindow()
                         SCContext.updateAvailableContent{
                             DispatchQueue.main.async {
+//                                设置显示的区域
                                 appDelegate.showAreaSelector(size: NSSize(width: 600, height: 450))
                                 var currentDisplay = SCContext.getSCDisplayWithMouse()
                                 mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .rightMouseDown, .leftMouseDown, .otherMouseDown]) { event in
@@ -160,7 +162,7 @@ struct ContentView: View {
                             }
                         }
                     }, label: {
-                        SelectorView(title: "Screen Area".local, symbol: "viewfinder")
+                        SelectorView(title: kScreenArea.local, symbol: "viewfinder")
                             .cornerRadius(8)
                     })
                     .buttonStyle(.plain)
@@ -316,10 +318,16 @@ struct CountdownView: View {
 }
 
 
+extension NSApplication {
+    static func closeMainWindow() {
+        for w in NSApplication.shared.windows.filter({ $0.title == kProjectName.local }) {
+            w.close()
+        }
+    }
+}
+
 extension AppDelegate {
-    
-    func closeMainWindow() { for w in NSApplication.shared.windows.filter({ $0.title == "vcb".local }) { w.close() } }
-    
+    func closeMainWindow() { for w in NSApplication.shared.windows.filter({ $0.title == kProjectName.local }) { w.close() } }
     func closeAllWindow(except: String = "") {
         for w in NSApp.windows.filter({
             $0.title != "Item-0" && $0.title != ""
@@ -331,13 +339,13 @@ extension AppDelegate {
         guard let scDisplay = SCContext.getSCDisplayWithMouse() else { return }
         guard let screen = scDisplay.nsScreen else { return }
         let screenshotWindow = ScreenshotWindow(contentRect: screen.frame, backing: .buffered, defer: false, size: size, force: noPanel)
-        screenshotWindow.title = "Area Selector".local
-        //screenshotWindow.orderFront(self)
+        screenshotWindow.title = kAreaSelector.local
         screenshotWindow.orderFrontRegardless()
         if !noPanel {
             let wX = (screen.frame.width - 700) / 2 + screen.frame.minX
             let wY = screen.visibleFrame.minY + 80
             let contentView = NSHostingView(rootView: AreaSelector(screen: scDisplay))
+            contentView.layer?.backgroundColor = NSColor.red.cgColor
             contentView.frame = NSRect(x: wX, y: wY, width: 780, height: 110)
             contentView.focusRingType = .none
             let areaPanel = NSPanel(contentRect: contentView.frame, styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
@@ -351,7 +359,6 @@ extension AppDelegate {
             areaPanel.isReleasedWhenClosed = false
             areaPanel.titlebarAppearsTransparent = true
             areaPanel.isMovableByWindowBackground = true
-            //areaPanel.setFrameOrigin(NSPoint(x: wX, y: wY))
             areaPanel.orderFront(self)
         }
     }
@@ -420,4 +427,3 @@ extension View {
 //#Preview {
 //    ContentView()
 //}
-//

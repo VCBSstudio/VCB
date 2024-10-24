@@ -88,8 +88,6 @@ struct SettingsView: View {
                                 Text("Opus").tag(AudioFormat.opus)
                             }.padding([.leading, .trailing], 10)
                         }.frame(maxWidth: .infinity).padding(.top, 10)
-                        /*Text("Opus doesn't support MP4, it will fall back to AAC")
-                            .font(.footnote).foregroundColor(Color.gray).padding([.leading, .trailing], 6).fixedSize(horizontal: false, vertical: true)*/
                         Toggle(isOn: $remuxAudio) { Text("Record Microphone to Main Track") }
                             .padding([.leading, .trailing], 10).padding(.top, 5)
                             .toggleStyle(.checkbox)
@@ -205,9 +203,9 @@ struct SettingsView: View {
                     Button(action: {
                         updateOutputDirectory()
                     }, label: {
-                        Text("Select Save Folder").padding([.leading, .trailing], 6)
+                        Text("change-path").padding([.leading, .trailing], 6)
                     })
-                    Text(String(format: "Currently set to \"%@\"".local, URL(fileURLWithPath: saveDirectory!).lastPathComponent))
+                    Text(String(format: "\"%@\"".local, saveDirectory!))
                         .font(.footnote)
                         .foregroundColor(Color.gray)
                         .lineLimit(2)
@@ -252,6 +250,7 @@ struct SettingsView: View {
         openPanel.allowedContentTypes = []
         openPanel.allowsOtherFileTypes = false
         openPanel.directoryURL = URL(fileURLWithPath: saveDirectory!) // 打开当前设置的目录
+        openPanel.allowsMultipleSelection = false
         if openPanel.runModal() == NSApplication.ModalResponse.OK {
             if let path = openPanel.urls.first?.path { saveDirectory = path }
         }
@@ -310,6 +309,8 @@ extension KeyboardShortcuts.Name {
 }
 
 extension AppDelegate {
+    
+//     这个方法似乎并么有执行
     @available(macOS 13.0, *)
     @objc func setLoginItem(_ sender: NSMenuItem) {
         sender.state = sender.state == .on ? .off : .on

@@ -190,31 +190,23 @@ class AppSelectorViewModel: ObservableObject {
             DispatchQueue.main.async { self.isReady = true }
         }
     }
-    
-    /*func updateAppList() {
-        SCContext.updateAvailableContent{
-            DispatchQueue.main.async {
-                self.allApps = SCContext.getApps().filter({ $0.bundleIdentifier != Bundle.main.bundleIdentifier })
-            }
-        }
-    }*/
 }
 
 struct OptionsView: View {
     @State private var micList = SCContext.getMicrophone()
     
-    @AppStorage("frameRate")      private var frameRate: Int = 60
-    @AppStorage("videoQuality")   private var videoQuality: Double = 1.0
+    @AppStorage(kFrameRate)      private var frameRate: Int = 60
+    @AppStorage(kVideoQuality)   private var videoQuality: Double = 1.0
     @AppStorage(kSaveDirectory)  private var saveDirectory: String?
-    @AppStorage("hideSelf")       private var hideSelf: Bool = false
-    @AppStorage("showMouse")      private var showMouse: Bool = true
-    @AppStorage("recordMic")      private var recordMic: Bool = false
-    @AppStorage("recordWinSound") private var recordWinSound: Bool = true
-    @AppStorage("background")     private var background: BackgroundType = .wallpaper
-    @AppStorage("highRes")        private var highRes: Int = 2
-    @AppStorage("recordHDR")      private var recordHDR: Bool = false
-    @AppStorage("micDevice")      private var micDevice: String = "default"
-    @AppStorage("enableAEC")      private var enableAEC: Bool = false
+    @AppStorage(kHideSelf)       private var hideSelf: Bool = false
+    @AppStorage(kShowMouse)      private var showMouse: Bool = true
+    @AppStorage(kRecordMic)      private var recordMic: Bool = false
+    @AppStorage(kRecordWinSound) private var recordWinSound: Bool = true
+    @AppStorage(kBackground)     private var background: BackgroundType = .wallpaper
+    @AppStorage(kHighRes)        private var highRes: Int = 2
+    @AppStorage(kRecordHDR)      private var recordHDR: Bool = false
+    @AppStorage(kMicDevice)      private var micDevice: String = kDefault
+    @AppStorage(kEnableAEC)      private var enableAEC: Bool = false
     
     var body: some View {
         VStack(spacing: 6) {
@@ -329,6 +321,6 @@ struct OptionsView: View {
                     }
                 }.needScale().padding(.trailing, -18)
             }
-        }//.padding(.leading, (micDevice != "default" && enableAEC) ? 20 : 0)
+        }
     }
 }

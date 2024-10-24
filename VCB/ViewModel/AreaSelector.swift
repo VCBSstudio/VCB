@@ -9,6 +9,9 @@
 import SwiftUI
 import ScreenCaptureKit
 
+let kAreaWith:String = "areaWidth"
+let kAreaHeight:String = "areaHeight"
+
 struct DashWindow: View {
     var body: some View {
         ZStack {
@@ -17,7 +20,7 @@ struct DashWindow: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
                         .stroke(style: StrokeStyle(lineWidth: 2, dash: [5]))
-                        .padding(2)
+                        .padding(1)
                         .foregroundColor(.blue.opacity(0.5))
                 )
         }
@@ -28,9 +31,9 @@ struct resizeView: View {
     private enum Field: Int, Hashable { case width, height }
     @FocusState private var focusedField: Field?
     
-    @AppStorage("areaWidth")  private var areaWidth: Int = 600
-    @AppStorage("areaHeight") private var areaHeight: Int = 450
-    @AppStorage("highRes")    private var highRes: Int = 2
+    @AppStorage(kAreaWith)  private var areaWidth: Int = 600
+    @AppStorage(kAreaHeight) private var areaHeight: Int = 450
+    @AppStorage(kHighRes)    private var highRes: Int = 2
     
     var appDelegate = AppDelegate.shared
     var screen: SCDisplay!
@@ -162,7 +165,7 @@ struct AreaSelector: View {
                 }
             }
             Button(action: {
-                for w in NSApplication.shared.windows.filter({ $0.title == "Area Selector".local || $0.title == "Start Recording".local}) { w.close() }
+                for w in NSApplication.shared.windows.filter({ $0.title == kAreaSelector.local || $0.title == "Start Recording".local}) { w.close() }
                 appDelegate.stopGlobalMouseMonitor()
             }, label: {
                 Image(systemName: "x.circle")
@@ -257,7 +260,6 @@ class ScreenshotOverlayView: NSView {
             dashedBorder.stroke()
             NSColor.init(white: 1, alpha: 0.01).setFill()
             __NSRectFill(rect)
-            // Draw control points
             for handle in ResizeHandle.allCases {
                 if let point = controlPointForHandle(handle, inRect: rect) {
                     let controlPointRect = NSRect(origin: point, size: CGSize(width: controlPointSize, height: controlPointSize))
@@ -405,8 +407,6 @@ class ScreenshotOverlayView: NSView {
         AppDelegate.shared.isResizing = false
         if let rect = selectionRect {
             SCContext.screenArea = rect
-            //let rectArray = [Int(rect.origin.x), Int(rect.origin.y), Int(rect.size.width), Int(rect.size.height)]
-            //ud.setValue(rectArray, forKey: "screenArea")
         }
     }
 }
@@ -443,12 +443,13 @@ class ScreenshotWindow: NSPanel {
     }
 }
 
+// 定义一个枚举类型
 enum ResizeHandle: CaseIterable {
     case none
     case topLeft, top, topRight, right, bottomRight, bottom, bottomLeft, left
     
-    static var allCases: [ResizeHandle] {
-        return [.none, .topLeft, .top, .topRight, .right, .bottomRight, .bottom, .bottomLeft, .left]
-    }
+//    static var allCases: [ResizeHandle] {
+//        return [.none, .topLeft, .top, .topRight, .right, .bottomRight, .bottom, .bottomLeft, .left]
+//    }
 }
 

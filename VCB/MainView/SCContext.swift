@@ -31,7 +31,6 @@ class SCContext {
     static var screenArea: NSRect?
     static let audioEngine = AVAudioEngine()
     static var backgroundColor: CGColor = CGColor.black
-    //static var recordMic = false
     static var filePath: String!
     static var filePath1: String!
     static var filePath2: String!
@@ -39,7 +38,6 @@ class SCContext {
     static var audioFile2: AVAudioFile?
     static var vW: AVAssetWriter!
     static var vwInput, awInput, micInput: AVAssetWriterInput!
-    //static var vwInputAdaptor: AVAssetWriterInputPixelBufferAdaptor!
     static var startTime: Date?
     static var timePassed: TimeInterval = 0
     static var stream: SCStream!
@@ -47,7 +45,6 @@ class SCContext {
     static var window: [SCWindow]?
     static var application: [SCRunningApplication]?
     static var streamType: StreamType?
-    //static var previewType: StreamType?
     static var availableContent: SCShareableContent?
     static let excludedApps = ["", "com.apple.dock", "com.apple.screencaptureui", "com.apple.controlcenter", "com.apple.notificationcenterui", "com.apple.systemuiserver", "com.apple.WindowManager", "dev.mnpn.Azayaka", "com.gaosun.eul", "com.pointum.hazeover", "net.matthewpalmer.Vanilla", "com.dwarvesv.minimalbar", "com.bjango.istatmenus.status"]
     
@@ -189,7 +186,7 @@ class SCContext {
         ud.setValue(false, forKey: "recordMic")
         DispatchQueue.main.async {
             let alert = AppDelegate.shared.createAlert(title: "Permission Required",
-                                                       message: "QuickRecorder needs permission to record your microphone.",
+                                                       message: "VCB needs permission to record your microphone.",
                                                        button1: "Open Settings",
                                                        button2: "Quit")
             if alert.runModal() == .alertFirstButtonReturn {
@@ -505,14 +502,6 @@ class SCContext {
         audioExportSession.audioMix = audioMix
         
         audioExportSession.exportAsynchronously {
-            /*var exportStatus: AVAssetExportSession.Status = .unknown
-            
-            // Loop until export session is completed, failed, or cancelled
-            while exportStatus != .completed && exportStatus != .failed && exportStatus != .cancelled {
-                exportStatus = audioExportSession.status
-                Thread.sleep(forTimeInterval: 0.1)
-            }*/
-            
             switch audioExportSession.status {
             case .completed:
                 let audioAsset = AVAsset(url: audioOutputURL)

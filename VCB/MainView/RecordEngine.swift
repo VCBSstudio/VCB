@@ -25,7 +25,6 @@ extension AppDelegate {
         var isDirectory: ObjCBool = false
         let fileManager = FileManager.default
         let outputPath = ud.string(forKey: kSaveDirectory)!
-        print("lt -- output path : \(outputPath)")
         if fileManager.fileExists(atPath: outputPath, isDirectory: &isDirectory) {
             if !isDirectory.boolValue {
                 SCContext.streamType = nil
@@ -169,10 +168,6 @@ extension AppDelegate {
                 conf.width = conf.width * (ud.integer(forKey: "highRes") == 2 ? Int(pointPixelScaleOld) : 1)
                 conf.height = conf.height * (ud.integer(forKey: "highRes") == 2 ? Int(pointPixelScaleOld) : 1)
             }
-            /*if ud.integer(forKey: "highRes") == 0 {
-                conf.width = Int(conf.width/2)
-                conf.height = Int(conf.height/2)
-            }*/
             conf.showsCursor = ud.bool(forKey: "showMouse") || fastStart
             if ud.string(forKey: "background") != BackgroundType.wallpaper.rawValue { conf.backgroundColor = SCContext.getBackgroundColor() }
             if !recordHDR {
@@ -185,7 +180,6 @@ extension AppDelegate {
                 }
                 if ud.bool(forKey: "withAlpha") { conf.pixelFormat = kCVPixelFormatType_32BGRA }
             }
-            //if let colorSpace = SCContext.getColorSpace(), !ud.bool(forKey: "recordHDR") { conf.colorSpaceName = colorSpace }
         }
         
         if #available(macOS 13, *) {
@@ -208,10 +202,6 @@ extension AppDelegate {
                     conf.width = Int(conf.sourceRect.width) * (ud.integer(forKey: "highRes") == 2 ? Int(pointPixelScaleOld) : 1)
                     conf.height = Int(conf.sourceRect.height) * (ud.integer(forKey: "highRes") == 2 ? Int(pointPixelScaleOld) : 1)
                 }
-                /*if ud.integer(forKey: "highRes") == 0 {
-                    conf.width = Int(conf.width/2)
-                    conf.height = Int(conf.height/2)
-                }*/
             }
         }
         
@@ -311,7 +301,7 @@ extension AppDelegate {
         let targetBitrate = resolution * fpsMultiplier * encoderMultiplier * qualityMultiplier
         var videoSettings: [String: Any] = [
             AVVideoCodecKey: encoderIsH265 ? ((ud.bool(forKey: "withAlpha") && !recordHDR) ? AVVideoCodecType.hevcWithAlpha : AVVideoCodecType.hevc) : AVVideoCodecType.h264,
-            // yes, not ideal if we want more than these encoders in the future, but it's ok for now
+
             AVVideoWidthKey: conf.width,
             AVVideoHeightKey: conf.height,
             AVVideoCompressionPropertiesKey: [
@@ -336,7 +326,6 @@ extension AppDelegate {
         
         
         SCContext.vwInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
-        //SCContext.vwInputAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: SCContext.vwInput, sourcePixelBufferAttributes: videoSettings)
         SCContext.micInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: SCContext.audioSettings)
         SCContext.vwInput.expectsMediaDataInRealTime = true
         SCContext.micInput.expectsMediaDataInRealTime = true
